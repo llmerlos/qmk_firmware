@@ -84,11 +84,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_RAISE] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            MW_QUIT, KC_HOME, KC_UP,   KC_END,  ES_FORD,                   ES_QUES, ES_LBRC, ES_RBRC, ES_HASH, ES_IQUE,
+            MW_QUIT, KC_HOME, KC_UP,   KC_END,  ES_FORD,                   ES_BSLS, ES_LBRC, ES_RBRC, ES_HASH, ES_IQUE,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
    KC_TRNS, KC_ESC,  KC_LEFT, KC_DOWN, KC_RGHT, ES_MORD,                   ES_AT,   ES_LPRN, ES_RPRN, ES_COLN, ES_DQUO,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, CW_TOGG, ES_GRV,  ES_CCED, ES_ACUT, ES_DIAE,                   KC_DEL,  ES_LCBR, ES_RCBR, ES_DLR,  ES_BSLS,  KC_RCTL,
+   KC_TRNS, CW_TOGG, ES_GRV,  ES_CCED, ES_ACUT, ES_DIAE,                   KC_DEL,  ES_LCBR, ES_RCBR, ES_DLR,  ES_QUES,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -96,16 +96,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_LOWER] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            ES_IEXL, ES_LABK, ES_RABK, ES_AMPR, ES_EXLM,                   ES_LLGM, ES_7,    ES_8,    ES_9,    ES_COMM,
+            ES_IEXL, ES_LABK, ES_RABK, ES_AMPR, ES_CIRC,                   ES_LLGM, ES_7,    ES_8,    ES_9,    ES_COMM,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
    KC_TRNS, ES_QUOT, ES_MINS, ES_PLUS, ES_EQL,  ES_PIPE,                   ES_NTIL, ES_4,    ES_5,    ES_6,    ES_0,    KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, ES_CIRC, ES_PERC, ES_ASTR, ES_UNDS, MW_TILD,                   ES_DOT,  ES_1,    ES_2,    ES_3,    ES_SLSH,  KC_RCTL,
+   KC_TRNS, ES_EXLM, ES_PERC, ES_ASTR, ES_UNDS, MW_TILD,                   ES_DOT,  ES_1,    ES_2,    ES_3,    ES_SLSH, KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
-  ),
-
+  ),  
 
    [_ADJUST] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
@@ -113,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
    KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                    MOUSE,   AOTLAY,  DSC_MUT, DSC_SSC, MW_SCRS, KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS,                   KC_PGDN, KVM1,    KVM2,    KC_CAPS, KC_INS,  KC_RCTL,
+   KC_TRNS, KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS,                   KC_PGDN, KVM1,    KVM2,    KC_CAPS, KC_INS,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -154,9 +153,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
    case ES_LLGM:
       if (record->event.pressed) {
-         tap_code(ES_L);
          tap_code16(S(ES_3));
-         tap_code(ES_L);
+
+         if (is_caps_word_on())
+            tap_code16(S(ES_L));
+         else 
+            tap_code16(ES_L);
+
       } else {
       }
       break;
@@ -200,3 +203,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    return true;
 };
 
+bool caps_word_press_user(uint16_t keycode) {
+   switch (keycode) {
+      // Keycodes that continue Caps Word, with shift applied.
+      case KC_A ... KC_Z:
+      case ES_CCED:
+      case ES_NTIL:
+      case ES_MINS:
+      case ES_LLGM:
+         add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+         return true;
+
+      // Keycodes that continue Caps Word, without shifting.
+      case KC_1 ... KC_0:
+      case KC_BSPC:
+      case KC_DEL:
+      case ES_UNDS:
+      case ES_GRV:
+      case ES_ACUT:
+      case ES_CIRC:
+      case KC_UP:
+      case KC_DOWN:
+      case KC_RGHT:
+      case KC_LEFT:
+         return true;
+
+      default:
+         return false;  // Deactivate Caps Word.
+   }
+}

@@ -86,9 +86,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
             MW_QUIT, KC_HOME, KC_UP,   KC_END,  ES_FORD,                   ES_BSLS, ES_LBRC, ES_RBRC, ES_HASH, ES_IQUE,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_ESC,  KC_LEFT, KC_DOWN, KC_RGHT, ES_MORD,                   ES_AT,   ES_LPRN, ES_RPRN, ES_COLN, ES_DQUO,  KC_TRNS,
+   KC_TRNS, KC_ESC,  KC_LEFT, KC_DOWN, KC_RGHT, ES_MORD,                   ES_QUES, ES_LPRN, ES_RPRN, ES_COLN, ES_DQUO,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, CW_TOGG, ES_GRV,  ES_CCED, ES_ACUT, ES_DIAE,                   KC_DEL,  ES_LCBR, ES_RCBR, ES_DLR,  ES_QUES,  KC_TRNS,
+   KC_TRNS, KC_DEL,  ES_GRV,  ES_CCED, ES_ACUT, ES_DIAE,                   ES_AT,   ES_LCBR, ES_RCBR, ES_DLR,  CW_TOGG,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -98,9 +98,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
             ES_IEXL, ES_LABK, ES_RABK, ES_AMPR, ES_CIRC,                   ES_LLGM, ES_7,    ES_8,    ES_9,    ES_COMM,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, ES_QUOT, ES_MINS, ES_PLUS, ES_EQL,  ES_PIPE,                   ES_NTIL, ES_4,    ES_5,    ES_6,    ES_0,    KC_TRNS,
+   KC_TRNS, ES_QUOT, ES_MINS, ES_PLUS, ES_EQL,  ES_EXLM,                   ES_NTIL, ES_4,    ES_5,    ES_6,    ES_0,    KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, ES_EXLM, ES_PERC, ES_ASTR, ES_UNDS, MW_TILD,                   ES_DOT,  ES_1,    ES_2,    ES_3,    ES_SLSH, KC_TRNS,
+   KC_TRNS, MW_TILD, ES_PERC, ES_ASTR, ES_UNDS, ES_PIPE,                   ES_DOT,  ES_1,    ES_2,    ES_3,    ES_SLSH, KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
    KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                    MOUSE,   AOTLAY,  DSC_MUT, DSC_SSC, MW_SCRS, KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS,                   KC_PGDN, KVM1,    KVM2,    KC_CAPS, KC_INS,  KC_TRNS,
+   KC_TRNS, KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS,                   KC_PGDN, KVM1,    KVM2,    KC_INS,  KC_CAPS, KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -153,7 +153,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
    case ES_LLGM:
       if (record->event.pressed) {
-         tap_code16(S(ES_3));
+         tap_code16(ES_BULT);
 
          if (is_caps_word_on())
             tap_code16(S(ES_L));

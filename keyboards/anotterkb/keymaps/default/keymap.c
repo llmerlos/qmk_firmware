@@ -1,15 +1,9 @@
 #include QMK_KEYBOARD_H
 #include "anotterkb.h"
-#include "keymap_spanish.h"
 
 enum custom_keycodes {
    KVM1 = SAFE_RANGE,
    KVM2,
-   ES_LLGM,
-   MW_SWAP,
-   MW_QUIT,
-   MW_TILD,
-   MW_SCRS,
 };
 
 // Keybinds for Discord
@@ -22,37 +16,64 @@ enum custom_keycodes {
 enum layer_number {
   _GAMING = 0,
   _GAMNUM,
-  _AOTLAYOUT, // This is actually the default
-  _RAISE,
+  _BASE, // This is actually the default
   _LOWER,
+  _RAISE,
+  _FUNCT,
   _ADJUST,
-  _MOUSE,
 };
 
 void keyboard_post_init_user(void) {
-   default_layer_set(1 << _AOTLAYOUT);
+   default_layer_set(1 << _BASE);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-#define AOTLAY DF(_AOTLAYOUT)
-#define ALPHAS MO(_AOTLAYOUT)
+#define AOTLAY DF(_BASE)
+#define ALPHAS MO(_BASE)
 #define GAMING DF(_GAMING)
 #define GAMNUM MO(_GAMNUM)
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-#define MOUSE TG(_MOUSE)
+#define FUNCLYR MO(_FUNCT)
+
+#define D_MUT S(C(KC_F9))
+#define D_SIL S(C(KC_F11))
+#define D_SHS S(C(KC_F10))
+
+#define VD_L   C(G(KC_LEFT))
+#define VD_R   C(G(KC_RGHT))
+#define VD_U   G(KC_TAB)
+
+#define E_IEX   ALGR(KC_1)
+#define E_IQM   ALGR(KC_SLSH)
+
+#define E_NN    ALGR(KC_N)
+#define E_CC    ALGR(KC_C)
+#define E_LL    ALGR(S(KC_SCLN))
+#define E_OF    ALGR(KC_2)
+#define E_OM    ALGR(KC_3)
+#define E_EUR   ALGR(KC_5)
+#define E_DEG   ALGR(KC_SCLN)
+
+#define E_AOB   ALGR(KC_GRV)
+#define E_ATC   ALGR(KC_QUOT)
+#define E_ACF   ALGR(KC_6)
+#define E_ADI   ALGR(S(KC_DQT))
+
+#define E_SMT   ALGR(S(KC_M))
+#define E_SLI   ALGR(KC_BSLS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_GAMING] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            KC_TAB,  ES_Q,    ES_W,    ES_E,    ES_R,                      ES_Y,    ES_U,    ES_I,    ES_O,    ES_P,    
+            KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_ESC,  KC_LSFT, ES_A,    ES_S,    ES_D,    ES_F,                      ES_H,    ES_J,    ES_K,    ES_L,    ES_NTIL, KC_ENT,
+   KC_ESC,  KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_B,    KC_LCTL, ES_Z,    ES_X,    ES_C,    ES_V,                      ES_N,    ES_M,    ES_COMM, ES_DOT,  ES_MINS, KC_LGUI,
+   KC_B,    KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LGUI,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_LALT, KC_SPC,  GAMNUM,  LOWER,   KC_BSPC, ALPHAS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -60,73 +81,73 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_GAMNUM] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            ES_0,    ES_1,    ES_T,    ES_4,    ES_7,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+            KC_TRNS, KC_1,    KC_TRNS, KC_2,    KC_3,                      KC_TRNS, KC_TRNS, KC_UP,   KC_TRNS, KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_TRNS, ES_2,    ES_G,    ES_5,    ES_8,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, A(KC_F4),
+   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_G,                      KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, A(KC_F4),
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_TRNS, ES_3,    ES_B,    ES_6,    ES_9,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+   KC_T,    KC_TRNS, KC_4,    KC_TRNS, KC_5,    KC_6,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_RALT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, GAMNUM,  KC_TRNS, KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
   ),
 
-   [_AOTLAYOUT] = LAYOUT_split_4x5(
+   [_BASE] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            ES_SCLN, ES_W,    ES_F,    ES_P,    ES_B,                      ES_J,    ES_L,    ES_U,    ES_Y,    ES_Q,
+            KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TAB,  ES_A,    ES_R,    ES_S,    ES_T,    ES_G,                      ES_M,    ES_N,    ES_E,    ES_I,    ES_O,    KC_ENT,
+   KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_LCTL, ES_Z,    ES_X,    ES_C,    ES_D,    ES_V,                      ES_K,    ES_H,    ES_COMM, ES_DOT,  ES_SLSH, KC_RALT,
+   KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RALT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_LGUI, KC_SPC,  RAISE,   LOWER,   KC_BSPC, KC_RSFT
 //                                    +--------+--------+--------+--------+--------+--------+
   ),
 
-   [_RAISE] = LAYOUT_split_4x5(
-//         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            MW_QUIT, KC_HOME, KC_UP,   KC_END,  ES_FORD,                   ES_BSLS, ES_LBRC, ES_RBRC, ES_HASH, ES_IQUE,
-//+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_ESC,  KC_LEFT, KC_DOWN, KC_RGHT, ES_MORD,                   ES_QUES, ES_LPRN, ES_RPRN, ES_COLN, ES_DQUO,  KC_TRNS,
-//+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_DEL,  ES_GRV,  ES_CCED, ES_ACUT, ES_DIAE,                   ES_AT,   ES_LCBR, ES_RCBR, ES_DLR,  CW_TOGG,  KC_TRNS,
-//+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-                                       KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
-//                                    +--------+--------+--------+--------+--------+--------+
-  ),
-
    [_LOWER] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            ES_IEXL, ES_LABK, ES_RABK, ES_AMPR, ES_CIRC,                   ES_LLGM, ES_7,    ES_8,    ES_9,    ES_COMM,
+            KC_TILD, KC_LABK, KC_RABK, KC_AMPR, KC_PIPE,                   KC_COMM, KC_7,    KC_8,    KC_9,    E_ATC,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, ES_QUOT, ES_MINS, ES_PLUS, ES_EQL,  ES_EXLM,                   ES_NTIL, ES_4,    ES_5,    ES_6,    ES_0,    KC_TRNS,
+   KC_TRNS, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,  KC_CIRC,                   KC_DOT,  KC_4,    KC_5,    KC_6,    KC_0,    KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, MW_TILD, ES_PERC, ES_ASTR, ES_UNDS, ES_PIPE,                   ES_DOT,  ES_1,    ES_2,    ES_3,    ES_SLSH, KC_TRNS,
+   KC_TRNS, KC_GRV,  KC_SLSH, KC_ASTR, KC_UNDS, KC_PERC,                   E_NN,    KC_1,    KC_2,    KC_3,    FUNCLYR, KC_RALT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
   ),  
 
-   [_ADJUST] = LAYOUT_split_4x5(
+   [_RAISE] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_PGUP, GAMING,  DSC_DFN, DSC_EXT, MW_SWAP, 
+            VD_L,    KC_HOME, KC_UP,   KC_END,  VD_U,                      E_ADI,   KC_LBRC, KC_RBRC, KC_HASH, KC_DQT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                    MOUSE,   AOTLAY,  DSC_MUT, DSC_SSC, MW_SCRS, KC_TRNS,
+   KC_TRNS, KC_ESC,  KC_LEFT, KC_DOWN, KC_RGHT, VD_R,                      KC_QUES, KC_LPRN, KC_RPRN, KC_COLN, KC_QUOT,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS,                   KC_PGDN, KVM1,    KVM2,    KC_INS,  KC_CAPS, KC_TRNS,
+   KC_TRNS, FUNCLYR, E_AOB,   E_CC,    E_LL,    KC_DEL,                    KC_AT,   KC_LCBR, KC_RCBR, KC_DLR,  KC_BSLS,  KC_RALT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
   ),
 
-   [_MOUSE] = LAYOUT_split_4x5(
+   [_FUNCT] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_WH_U, KC_MS_U, KC_WH_D, MW_SWAP,
+            QK_BOOT, XXXXXXX, XXXXXXX, E_OM,    E_OF,                      KC_F12,  KC_F7,    KC_F8,   KC_F9,   QK_BOOT,    
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TAB,  KC_DEL,  KC_LSFT, KC_RCTL, KC_RSFT, KC_RWIN,                   XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, MW_SCRS, KC_ENT,
+   KC_TRNS, E_IEX,   XXXXXXX, XXXXXXX, E_IQM,   E_ACF,                     KC_F11,  KC_F4,    KC_F5,   KC_F6,   KC_F13,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_LCTL, KC_ESC,  KC_LALT, KC_C,    KC_RALT, KC_V,                      XXXXXXX, KC_WH_L, KC_BTN3, KC_WH_R, XXXXXXX, KC_RALT,
+   KC_TRNS, KC_TRNS, XXXXXXX, XXXXXXX, E_SMT,   E_SLI,                     KC_F10,  KC_F1,    KC_F2,   KC_F3,   KC_TRNS, KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-                                       KC_LWIN, KC_SPC,  MOUSE,   KC_BTN1, KC_BSPC, KC_BTN2
+                                       KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
+//                                    +--------+--------+--------+--------+--------+--------+
+  ),
+
+   [_ADJUST] = LAYOUT_split_4x5(
+//         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
+            KC_APP,  KC_MPRV, KC_MSTP, KC_MNXT, KC_KB_VOLUME_UP,           KC_PGUP, GAMING,  KC_PSCR, KC_SCRL, KC_PAUS, 
+//+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
+   KC_TRNS, KC_CAPS, D_SHS,   D_SIL,   D_MUT,   KC_KB_VOLUME_DOWN,         KC_PGDN, AOTLAY,  KC_INS,  XXXXXXX, XXXXXXX, KC_TRNS,
+//+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
+   KC_RCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_KB_MUTE,                XXXXXXX, KVM1,    KVM2,    XXXXXXX, XXXXXXX, KC_RALT,
+//+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
+                                       KC_RGUI, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_LSFT
 //                                    +--------+--------+--------+--------+--------+--------+
   ),
 };
@@ -151,84 +172,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
       }
       break;
-   case ES_LLGM:
-      if (record->event.pressed) {
-         tap_code16(ES_BULT);
-
-         if (is_caps_word_on())
-            tap_code16(S(ES_L));
-         else 
-            tap_code16(ES_L);
-
-      } else {
-      }
-      break;
-   case MW_SWAP:
-      if (record->event.pressed) {
-         is_mac = !is_mac;
-      } else {
-      }
-      break;
-   case MW_QUIT:
-      if (record->event.pressed) {
-         if (is_mac) {
-            tap_code16(G(KC_Q));
-         } else {
-            tap_code16(A(KC_F4));
-         }
-      } else {
-      }
-      break;
-   case MW_TILD:
-      if (record->event.pressed) {
-         if (is_mac) {
-            tap_code16(ALGR(ES_NTIL));
-         } else {
-            tap_code16(ALGR(ES_4));
-         }
-      } else {
-      }
-      break;
-   case MW_SCRS:
-      if (record->event.pressed) {
-         if (is_mac) {
-            tap_code16(G(S(KC_4)));
-         } else {
-            tap_code16(G(S(KC_S)));
-         }
-      } else {
-      }
-      break;
    }
    return true;
 };
-
-bool caps_word_press_user(uint16_t keycode) {
-   switch (keycode) {
-      // Keycodes that continue Caps Word, with shift applied.
-      case KC_A ... KC_Z:
-      case ES_CCED:
-      case ES_NTIL:
-      case ES_MINS:
-      case ES_LLGM:
-         add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
-         return true;
-
-      // Keycodes that continue Caps Word, without shifting.
-      case KC_1 ... KC_0:
-      case KC_BSPC:
-      case KC_DEL:
-      case ES_UNDS:
-      case ES_GRV:
-      case ES_ACUT:
-      case ES_CIRC:
-      case KC_UP:
-      case KC_DOWN:
-      case KC_RGHT:
-      case KC_LEFT:
-         return true;
-
-      default:
-         return false;  // Deactivate Caps Word.
-   }
-}

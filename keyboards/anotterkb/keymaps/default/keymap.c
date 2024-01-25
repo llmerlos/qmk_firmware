@@ -56,12 +56,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #define E_OF    ALGR(KC_2)
 #define E_OM    ALGR(KC_3)
 #define E_EUR   ALGR(KC_5)
+#define E_PND   ALGR(KC_4)
 #define E_DEG   ALGR(KC_SCLN)
 
 #define E_AOB   ALGR(KC_GRV)
 #define E_ATC   ALGR(KC_QUOT)
 #define E_ACF   ALGR(KC_6)
 #define E_ADI   ALGR(S(KC_DQT))
+#define E_ATI   ALGR(S(KC_GRV))
 
 #define E_SMT   ALGR(S(KC_M))
 #define E_SLI   ALGR(KC_BSLS)
@@ -107,9 +109,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
             KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   E_AOB,   KC_7,    KC_8,    KC_9,    E_ATC,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_TILD, KC_MINS, KC_PLUS, KC_EQL,  KC_ASTR,                   KC_DOT,  KC_4,    KC_5,    KC_6,    KC_0,    KC_TRNS,
+   KC_TRNS, KC_TILD, KC_MINS, KC_PLUS, KC_EQL,  E_PND,                     E_ADI,   KC_4,    KC_5,    KC_6,    KC_0,    KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_GRV,  KC_LABK, KC_RABK, KC_UNDS, KC_SLSH,                   KC_COMM, KC_1,    KC_2,    KC_3,    FUNCL,   KC_RALT,
+   KC_TRNS, KC_GRV,  KC_SLSH, KC_ASTR, KC_UNDS, E_EUR,                     E_NN,    KC_1,    KC_2,    KC_3,    FUNCL,   KC_RALT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -117,11 +119,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_RAISE] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            VD_L,    KC_HOME, KC_UP,   KC_END,  VD_U,                      KC_CIRC, KC_LBRC, KC_RBRC, KC_PIPE, KC_DQT,
+            VD_L,    KC_HOME, KC_UP,   KC_END,  VD_U,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_ESC,  KC_LEFT, KC_DOWN, KC_RGHT, VD_R,                      KC_AMPR, KC_LPRN, KC_RPRN, KC_COLN, KC_QUOT,  KC_TRNS,
+   KC_TRNS, KC_ESC,  KC_LEFT, KC_DOWN, KC_RGHT, VD_R,                      KC_LCBR, KC_LBRC, KC_RBRC, KC_RCBR, KC_QUOT,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, FUNCL,   KC_PGDN, E_CC,    KC_PGUP, KC_DEL,                    E_NN,    KC_LCBR, KC_RCBR, KC_BSLS, KC_QUES,  KC_RALT,
+   KC_TRNS, FUNCL,   KC_PGDN, E_CC,    KC_PGUP, KC_DEL,                    KC_BSLS, KC_PIPE, KC_LABK, KC_RABK, KC_DQT,  KC_RALT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -129,11 +131,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_FUNCT] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_F12,  KC_F7,    KC_F8,   KC_F9,   QK_BOOT,    
+            QK_BOOT, KC_F7,    KC_F8,   KC_F9,  KC_F12,                    KC_F12,  KC_F7,    KC_F8,   KC_F9,   QK_BOOT,    
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_F11,  KC_F4,    KC_F5,   KC_F6,   KC_F13,  KC_TRNS,
+   KC_TRNS, KC_F13,  KC_F4,    KC_F5,   KC_F6,  KC_F11,                    KC_F11,  KC_F4,    KC_F5,   KC_F6,   KC_F13,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_F10,  KC_F1,    KC_F2,   KC_F3,   KC_TRNS, KC_TRNS,
+   KC_TRNS, KC_TRNS, KC_F1,    KC_F2,   KC_F3,  KC_F10,                    KC_F10,  KC_F1,    KC_F2,   KC_F3,   KC_TRNS, KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -141,13 +143,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_ADJUST] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            E_IEX,   E_ADI,   E_LL,    D_SHS,   KC_KB_VOLUME_UP,           KC_MPRV, KC_INS,  KC_PSCR, KC_SCRL, KC_PAUS, 
+            E_IEX,   E_ACF,   E_LL,    D_SHS,   KC_KB_VOLUME_UP,           KC_MPRV, KC_INS,  KC_PSCR, KC_SCRL, KC_PAUS, 
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
    KC_TRNS, KC_CAPS, E_OM,    E_OF,    D_MUT,   KC_KB_VOLUME_DOWN,         KC_MSTP, AOTLAY,  GAMING,  XXXXXXX, KC_APP,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_RCTL, KC_NUBS, E_ACF,   E_DEG,   D_SIL,   KC_KB_MUTE,                KC_MNXT, KVM1,    KVM2,    XXXXXXX, E_IQM,   KC_RALT,
+   KC_RALT, KC_NUBS, E_ATI,   E_DEG,   D_SIL,   KC_KB_MUTE,                KC_MNXT, KVM1,    KVM2,    XXXXXXX, E_IQM,   KC_RCTL,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-                                       KC_RGUI, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_LSFT
+                                       KC_LSFT, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_RGUI
 //                                    +--------+--------+--------+--------+--------+--------+
   ),
 };

@@ -67,6 +67,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #define E_SMT   ALGR(S(KC_M))
 #define E_SLI   ALGR(KC_BSLS)
+#define MS_RALT   OSM(MOD_RALT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_GAMING] = LAYOUT_split_4x5(
@@ -75,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
    KC_ESC,  KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_B,    KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,                      KC_N,    KC_M,    VD_L,    VD_U,    VD_R,    KC_LGUI,
+   KC_B,    KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LGUI,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_LALT, KC_SPC,  GAMNUM,  LOWER,   KC_BSPC, ALPHAS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -83,11 +84,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_GAMNUM] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            KC_TRNS, KC_1,    KC_TRNS, KC_2,    KC_3,                      KC_TRNS, KC_TRNS, KC_UP,   KC_TRNS, KC_TRNS,
+            KC_TRNS, KC_1,    KC_TRNS, KC_2,    KC_3,                      VD_U,    KC_TRNS, KC_UP,   KC_TRNS, VD_R,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_G,                      KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, A(KC_F4),
+   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_G,                      VD_L,    KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, A(KC_F4),
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_TRNS, KC_4,    KC_5,    KC_6,    KC_B,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_RALT,
+   FUNCL,   KC_TRNS, KC_4,    KC_5,    KC_6,    KC_B,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, GAMNUM,  KC_TRNS, KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -99,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RALT,
+   KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LALT,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_LGUI, KC_SPC,  RAISE,   LOWER,   KC_BSPC, KC_RSFT
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -111,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
    KC_TRNS, KC_TILD, KC_MINS, KC_PLUS, KC_EQL,  E_PND,                     E_ADI,   KC_4,    KC_5,    KC_6,    KC_0,    KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_GRV,  KC_SLSH, KC_ASTR, KC_UNDS, E_EUR,                     E_NN,    KC_1,    KC_2,    KC_3,    FUNCL,   KC_RALT,
+   KC_TRNS, KC_GRV,  KC_SLSH, KC_ASTR, KC_UNDS, E_EUR,                     E_NN,    KC_1,    KC_2,    KC_3,    FUNCL,   KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -119,11 +120,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_RAISE] = LAYOUT_split_4x5(
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
-            VD_L,    KC_HOME, KC_UP,   KC_END,  VD_U,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
+            VD_L,    KC_HOME, KC_UP,   KC_END,  VD_U,                      KC_CIRC, KC_AMPR, KC_DQT,  KC_LPRN, KC_RPRN,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
    KC_TRNS, KC_ESC,  KC_LEFT, KC_DOWN, KC_RGHT, VD_R,                      KC_LCBR, KC_LBRC, KC_RBRC, KC_RCBR, KC_QUOT,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, FUNCL,   KC_PGDN, E_CC,    KC_PGUP, KC_DEL,                    KC_BSLS, KC_PIPE, KC_LABK, KC_RABK, KC_DQT,  KC_RALT,
+   KC_TRNS, FUNCL,   KC_PGDN, E_CC,    KC_PGUP, KC_DEL,                    KC_BSLS, KC_PIPE, KC_LABK, KC_RABK, KC_QUES,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
                                        KC_TRNS, KC_TRNS, RAISE,   LOWER,   KC_TRNS, KC_TRNS
 //                                    +--------+--------+--------+--------+--------+--------+
@@ -145,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //         +--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+
             E_IEX,   E_ACF,   E_LL,    D_SHS,   KC_KB_VOLUME_UP,           KC_MPRV, KC_INS,  KC_PSCR, KC_SCRL, KC_PAUS, 
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-   KC_TRNS, KC_CAPS, E_OM,    E_OF,    D_MUT,   KC_KB_VOLUME_DOWN,         KC_MSTP, AOTLAY,  GAMING,  XXXXXXX, KC_APP,  KC_TRNS,
+   KC_TRNS, KC_CAPS, E_OM,    E_OF,    D_MUT,   KC_KB_VOLUME_DOWN,         KC_MSTP, AOTLAY,  GAMING,  MS_RALT, KC_APP,  KC_TRNS,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
    KC_RALT, KC_NUBS, E_ATI,   E_DEG,   D_SIL,   KC_KB_MUTE,                KC_MNXT, KVM1,    KVM2,    XXXXXXX, E_IQM,   KC_RCTL,
 //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
